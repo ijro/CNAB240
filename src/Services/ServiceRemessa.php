@@ -57,7 +57,7 @@ class ServiceRemessa
      */
     private function readHeaderLoteYml()
     {
-        return $this->yaml->readHeaderLote();
+        return $this->yaml->readHeaderLote($this->banco);
     }
 
     /**
@@ -96,7 +96,8 @@ class ServiceRemessa
         return [
             TipoTransacao::BOLETO,
             TipoTransacao::CHEQUE,
-            TipoTransacao::TRANSFERENCIA
+            TipoTransacao::TRANSFERENCIA,
+            TipoTransacao::TRANSFERENCIAB
         ];
     }
 
@@ -115,8 +116,9 @@ class ServiceRemessa
 
         foreach($dataFile->header_arquivo as $key => $headerArquivoData) {
             $messageErro = "Chave passada no Header do Arquivo [array] difere do arquivo de configuração yml: {$key}";
-            if(!array_key_exists($key, $ymlHeaderArquivoToArray))
+            if(!array_key_exists($key, $ymlHeaderArquivoToArray)) {
                 throw new CNAB240PagamentoException($messageErro);
+            }
 
             $ymlHeaderArquivoToArray[$key]['value'] = $headerArquivoData;
         }
@@ -214,6 +216,45 @@ class ServiceRemessa
         return $detailMadeByYmlStructure;
     }
 
+    private function matchDetailFileAndDetailDataB(DataFile $dataFile)
+    {
+        if(!array_key_exists("0", $dataFile->detail))
+            throw new CNAB240PagamentoException("O array de detalhes está inválido, consulte a documentação.");
+
+        $detailMadeByYmlStructure = [];
+
+        foreach($dataFile->detail as $key => $data) {
+
+            /**
+             * Load layout of detail
+             */
+            $tipo_transacao = "transferenciaB";
+
+            if(!in_array($tipo_transacao, $this->typeOfPayments()))
+                throw new LayoutException("Tipo de pagamento inválido ou não informado.");
+
+            $ymlDetailToArray = $this->readDetailYml($tipo_transacao);
+
+            /**
+             * Delete key
+             */
+            unset($tipo_transacao);
+
+            foreach($data as $field => $value) {
+                $messageErro = "Chave passada no Detail [array] difere do arquivo de configuração yml: {$field}";
+                if(!array_key_exists($field, $ymlDetailToArray)) {
+                    continue;
+                    throw new CNAB240PagamentoException($messageErro);
+                }
+
+                $ymlDetailToArray[$field]['value'] = $value;
+            }
+            $detailMadeByYmlStructure[$key] = $ymlDetailToArray;
+        }
+
+        return $detailMadeByYmlStructure;
+    }
+
     private function matchTrailerLoteFileAndTrailerLoteData(DataFile $dataFile)
     {
         if(empty($dataFile->trailer_lote))
@@ -260,16 +301,18 @@ class ServiceRemessa
         $matchHeaderArquivo = $this->matchHeaderArquivoFileAndHeaderArquivoData($dataFile);
         $matchHeaderLote = $this->matchHeaderLoteFileAndHeaderLoteData($dataFile);
         $matchDetail = $this->matchDetailFileAndDetailData($dataFile);
+        $matchDetail2 = null;
+        if($this->banco['codigo_banco'] == Bancos::INTER) $matchDetail2 = $this->matchDetailFileAndDetailDataB($dataFile);
         $matchTrailerLote = $this->matchTrailerLoteFileAndTrailerLoteData($dataFile);
         $matchTrailerArquivo = $this->matchTrailerArquivoFileAndTrailerArquivoData($dataFile);
 
         $remessaFactory = new RemessaFactory(
             $matchHeaderArquivo, 
             $matchHeaderLote, 
-            $matchDetail, 
+            $matchDetail,
+            $matchDetail2,
             $matchTrailerLote,
-            $matchTrailerArquivo,
-            $this->banco);
-        return $remessaFactory->generateFile();
+            $matchTrailerArquivo);
+        return $remessaFactory->generateFile($this->banco);
     }
 }

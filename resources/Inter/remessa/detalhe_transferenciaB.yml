@@ -1,0 +1,44 @@
+#aseado na documentação do ANCO INTER
+#SEGMENTO - 
+#Registro detalhe segmento 
+codigo_banco:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '077'
+codigo_lote:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: '0000'
+tipo_registro:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '3'
+numero_registroB:
+  pos: [9, 13]
+  picture: '9(05)'
+  default: '00001'
+codigo_segmento:
+  pos: [14, 14]
+  picture: 'X(01)'
+  default: 'B'
+formaIniciacao:
+  pos: [15, 17]
+  picture: 'X(03)'
+  default: '005'
+tipo_documento_favorecidoB:
+ pos: [18, 18]
+ picture: '9(01)'
+ default: ''
+numero_inscricaoB:
+  pos: [19, 32]
+  picture: '9(14)'
+  default: ''
+brancos01B:
+  pos: [33, 232]
+  picture: 'X(200)'
+  default: ''
+favorecidoISPBB:
+  pos: [233, 240]
+  picture: 'X(08)'
+  default: ' '  
+  

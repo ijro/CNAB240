@@ -17,6 +17,7 @@ class Bancos
     /**
      * @var integer|341
      */
+    const INTER = 77;
     const ITAU = 341;
     const BANCODOBRASIL = 1;
 
@@ -28,6 +29,14 @@ class Bancos
     public static function getBankData(int $banco)
     {
         switch ($banco) {
+            case self::INTER:
+                return [
+                    'codigo_banco' => '077',
+                    'nome_banco' => 'INTER',
+                    'path_remessa' => realpath(dirname(__FILE__)."/../resources/Inter/remessa"),
+                    'path_retorno' => realpath(dirname(__FILE__)."/../resources/Inter/retorno")
+                ];
+                break;
             case self::ITAU:
                 return [
                     'codigo_banco' => '341',

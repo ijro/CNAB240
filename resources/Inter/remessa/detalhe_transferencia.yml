@@ -1,0 +1,123 @@
+#Baseado na documentação do BANCO INTER
+#SEGMENTO - A
+#Registro detalhe segmento A
+codigo_banco:
+  pos: [1, 3]
+  picture: '9(03)'
+  default: '077'
+codigo_lote:
+  pos: [4, 7]
+  picture: '9(04)'
+  default: '0001'
+tipo_registro:
+  pos: [8, 8]
+  picture: '9(01)'
+  default: '3'
+numero_registro:
+  pos: [9, 13]
+  picture: '9(05)'
+  default: '00001'
+codigo_segmento:
+  pos: [14, 14]
+  picture: 'X(01)'
+  default: 'A'
+tipo_movimento:
+  pos: [15, 15]
+  picture: '9(01)'
+  default: '0'
+codigo_movimento:
+  pos: [16, 17]
+  picture: '9(02)'
+  default: '00'
+codigo_camara_centralizadora:
+  pos: [18, 20]
+  picture: '9(03)'
+  default: '0'  
+banco_favorecido:
+  pos: [21, 23]
+  picture: '9(03)'
+  default: '000'  
+agencia_favorecido:
+  pos: [24, 28]
+  picture: '9(05)'
+  default: '0'    
+digito_agencia_favorecido:
+  pos: [29, 29]
+  picture: 'X(01)'
+  default: '0'  
+conta_favorecido:
+  pos: [30, 41]
+  picture: '9(12)'
+  default: '0'    
+digito_conta_favorecido:
+  pos: [42, 42]
+  picture: 'X(01)'
+  default: '0'
+digito_agconta_favorecido:
+  pos: [43, 43]
+  picture: 'X(01)'
+  default: ' '
+nome_favorecido:
+  pos: [44, 73]
+  picture: 'X(30)'
+  default: '0'
+brancos07:
+  pos: [74, 93]
+  picture: 'X(20)'
+  default: ' '
+data_pagamento:
+  pos: [94, 101]
+  picture: '9(08)'
+  default: '0'
+codigo_moeda: 
+  pos: [102, 104]
+  picture: 'X(03)'
+  default: 'BRL'  
+quantidade_moeda:
+  pos: [105, 119]
+  picture: '9(15)'
+  default: '0'
+valor_pagamento:
+  pos: [120, 134]
+  picture: '9(15)'
+  default: '0'  
+numero_empresa:
+  pos: [135, 154]
+  picture: 'X(20)'
+  default: ' '
+data_real_efetivacao:
+  pos: [155, 162]
+  picture: '9(08)'
+  default: '0'
+valor_real_efetivacao:
+  pos: [163, 177]
+  picture: '9(15)'
+  default: '0'
+brancos_outros:
+  pos: [178, 217]
+  picture: 'X(40)'
+  default: ' '
+compl_tipo_servico:
+  pos: [218, 219]
+  picture: 'X(02)'
+  default: '01'  
+brancos_codigo_finalidade_ted:
+  pos: [220, 224]
+  picture: '9(05)'
+  default: '00007'
+brancos_complemento_finalidade_ted:
+  pos: [225, 226]
+  picture: 'X(02)'
+  default: ' '    
+brancos_brancos01:
+  pos: [227, 229]
+  picture: 'X(03)'
+  default: ' '
+aviso_favorecido:
+  pos: [230, 230]
+  picture: '9(01)'
+  default: '0'  
+brancos_ocorrencias:
+  pos: [231, 240]
+  picture: 'X(10)'
+  default: ' '

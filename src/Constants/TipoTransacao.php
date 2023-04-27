@@ -28,4 +28,5 @@ class TipoTransacao
      * ESSE VALOR ENGLOBA TIPOS: TED, DOC E TRANFERENCIA ENTRE CONTAS
      */
     const TRANSFERENCIA = 'transferencia';
+    const TRANSFERENCIAB = 'transferenciaB';
 }

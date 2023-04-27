@@ -47,10 +47,11 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
      */
     public function readHeaderArquivo()
     {
+
         $filename = "{$this->path}/header_arquivo.yml";
 
         if (!file_exists($filename))
-            throw new HeaderYamlException("Arquivo de configuração header.yml não encontrado em: $this->path");
+            throw new HeaderYamlException("Arquivo de configuração header_arquivo.yml não encontrado em: $filename");
 
         $this->fields = $this->parse(file_get_contents($filename));
 
@@ -62,13 +63,17 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
      * @throws HeaderYamlException
      * @throws LayoutException
      */
-    public function readHeaderLote()
+    public function readHeaderLote($banco)
     {
-        //CONFIGURADO PARA ARQUIVOS DE BOLETO
-        $filename = "{$this->path}/header_lote_boleto.yml";
+
+        if (intval($banco['codigo_banco']) == Bancos::INTER) {
+            $filename = "{$this->path}/header_lote.yml";
+        } else {
+            $filename = "{$this->path}/header_lote_boleto.yml";
+        }
 
         if (!file_exists($filename))
-            throw new HeaderYamlException("Arquivo de configuração header.yml não encontrado em: $this->path");
+            throw new HeaderYamlException("Arquivo de configuração header.yml não encontrado em:$filename");
 
         $this->fields = $this->parse(file_get_contents($filename));
 
@@ -92,6 +97,12 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
             case TipoTransacao::CHEQUE:
                 $filename = "{$this->path}/detalhe_cheque.yml";
                 break;
+            case TipoTransacao::TRANSFERENCIA:
+                $filename = "{$this->path}/detalhe_transferencia.yml";
+                break;
+            case TipoTransacao::TRANSFERENCIAB:
+                $filename = "{$this->path}/detalhe_transferenciaB.yml";
+                break;
         }
 
         if (!file_exists($filename))
@@ -107,7 +118,7 @@ class Yaml extends \Symfony\Component\Yaml\Yaml
 
         if ($banco['codigo_banco'] == Bancos::ITAU) {
             $filename = "{$this->path}/trailer_lote_boleto.yml";
-        } elseif ( $banco['codigo_banco'] == Bancos::BANCODOBRASIL) {
+        } elseif ( $banco['codigo_banco'] == Bancos::BANCODOBRASIL ||  (intval($banco['codigo_banco']) == Bancos::INTER)) {
             $filename = "{$this->path}/trailer_lote.yml";
         }
 
