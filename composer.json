@@ -1,12 +1,12 @@
 {
-    "name": "ewersonfc/cnab240-pagamento",
+    "name": "ijro/CNAB240",
     "description": "CNAB 240 Pagamento",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "William Neves da Silva",
-            "email": "carcaju@carcaju.com.br"
+            "name": "Isaias Oliveira",
+            "email": "ijrocomufmg@gmail.com"
         }
     ],
     "require": {
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ewersonfc\\CNAB240Pagamento\\": "src/"
+            "IJRO\\CNAB240\\": "src/"
         }
     }
 }
