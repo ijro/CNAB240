@@ -17,7 +17,7 @@ class Bancos
     /**
      * @var integer|341
      */
-    const INTER = 77;
+    const INTER = 77; //TESTE
     const ITAU = 341;
     const BANCODOBRASIL = 1;
 
